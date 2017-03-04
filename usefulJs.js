@@ -75,11 +75,11 @@ function setATag() {
  * @returns {*}
  */
 function getNextElement(nextSiblingNode) {
-    if (node.nodeType == 1) {
-        return node;
+    if (nextSiblingNode.nodeType == 1) {
+        return nextSiblingNode;
     }
-    if(node.nextSibling){
-        return getLastElmentChild(node.nextSibling);
+    if(nextSiblingNode.nextSibling){
+        return getLastElmentChild(nextSiblingNode.nextSibling);
     }
     return null;
 }
