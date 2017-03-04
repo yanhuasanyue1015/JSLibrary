@@ -83,3 +83,23 @@ function getNextElement(nextSiblingNode) {
     }
     return null;
 }
+
+
+/***
+ * 给某个元素增加class属性值
+ * @param element  需要添加新class的元素element
+ * @param value     增加新的class值
+ */
+function addClass(element, value) {
+    if (!element.className) {
+        element.className = value;
+    } else {
+        var classes = element.className.split(" ");
+        for (var i = 0; i < classes.length; i++) {
+            if (classes[i] === value) {
+                return;
+            }
+        }
+        element.className += " " + value;
+    }
+}
