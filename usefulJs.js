@@ -68,3 +68,18 @@ function setATag() {
         }
     }
 }
+
+/***
+ * 
+ * @param nextSiblingNode
+ * @returns {*}
+ */
+function getNextElement(nextSiblingNode) {
+    if (node.nodeType == 1) {
+        return node;
+    }
+    if(node.nextSibling){
+        return getLastElmentChild(node.nextSibling);
+    }
+    return null;
+}
