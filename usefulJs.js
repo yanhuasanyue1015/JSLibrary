@@ -103,3 +103,65 @@ function addClass(element, value) {
         element.className += " " + value;
     }
 }
+
+/**
+ * 将元素移动到特定的位置
+ * @param leftDestination   目标位置距离左侧的距离
+ * @param topDestination    目标位置距离顶部的距离
+ * @param target            需要移动的元素
+ * @param interval          每隔多长时间更新位置,通过它控制移动速度,设置的越大,移动的越快
+ * @param unit              移动的单位,默认px
+ */
+function moveElement(leftDestination, topDestination, target, interval, unit) {
+    if (leftDestination == null || topDestination == null || target == null) {
+        return false;
+    }
+    target.style.position = "absolute";
+    if (!unit) {
+        unit = "px"
+    }
+    if (!interval) {
+        interval = 10;
+    }
+    if (target.movement) {
+        clearTimeout(target.movement);
+    }
+    function move() {
+        var leftPosition = !target.style.left ? 0 : parseInt(target.style.left);
+        var topPosition = !target.style.top ? 0 : parseInt(target.style.top);
+        var xMove = Math.ceil(Math.abs(leftPosition - leftDestination) / 10);
+        var yMove = Math.ceil(Math.abs(topPosition - topDestination) / 10);
+        var satisfyLeft;
+        var satisfyTop;
+        if (!leftPosition || (leftPosition && leftPosition != leftDestination)) {
+            satisfyLeft = true;
+        } else {
+            satisfyLeft = false;
+        }
+        if (!topPosition || (leftPosition && topPosition != topDestination)) {
+            satisfyTop = true;
+        } else {
+            satisfyTop = false;
+        }
+        if (satisfyLeft) {
+            if (leftPosition > leftDestination) {
+                target.style.left = leftPosition - xMove + unit;
+            } else if (leftPosition < leftDestination) {
+                target.style.left = leftPosition + xMove + unit;
+            }
+        }
+        if (satisfyTop) {
+            if (topPosition > topDestination) {
+                target.style.top = topPosition - yMove + unit;
+            } else if (topPosition < topDestination) {
+                target.style.top = topPosition + yMove + unit;
+            }
+        }
+        if (satisfyLeft == false && satisfyTop == false) {
+            return true;
+        }
+        target.movement = setTimeout(move, interval);
+    }
+
+    move();
+}
