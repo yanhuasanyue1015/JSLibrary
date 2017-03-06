@@ -13,19 +13,20 @@ function insertAfter(newElement, taggetElement) {
         parent.insertBefore(newElement, taggetElement.nextSibling);
     }
 }
+
 /**
  * 动态的增加window.onload触发之后的触发函数
  * */
-function addLoadEvent(func) {
-    var oldOnLoad = window.onload;
-    if (typeof oldOnLoad != 'function') {
-        window.onload = func;
-    } else {
-        window.onload = function () {
-            oldOnLoad();
-            func();
-        };
+function attachLoadEvent(target, func) {
+    if (!target || !func) {
+        return false;
     }
+    if (window.addEventListener) {
+        target.addEventListener("onload", func, true);
+    } else if (window.attachEvent) {
+        target.attachEvent("onload", func);
+    }
+    return false;
 }
 /**
  * 获取父标签最后一个元素标签
@@ -164,4 +165,15 @@ function moveElement(leftDestination, topDestination, target, interval, unit) {
     }
 
     move();
+}
+/**
+ * 检查浏览器是否支持某种类型的输入控件
+ */
+function inputSupportType(type) {
+    if (!(document.createElement)) {
+        return false;
+    }
+    var input = document.createElement("input");
+    input.setAttribute("type",type);
+    input.type=='type'
 }
