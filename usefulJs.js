@@ -37,6 +37,31 @@ function getLastElmentChild(parent) {
     return elementChilds[elementChilds.length - 1];
 }
 
+/**
+ * 通用的获得ajavx对象,兼容各个浏览器
+ * @returns {*}
+ */
+function getHttpRequest() {
+    if (!XMLHttpRequest) {
+        try {
+            return new ActiveXObject("Msxml2.XMLHTTP.6.0");
+        }
+        catch (e) {
+        }
+        try {
+            return new ActiveXObject("Msxml2.XMLHTTP.3.0");
+        } catch (e) {
+        }
+        try {
+            return new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e) {
+        }
+        return false;
+    }
+    return new XMLHttpRequest();
+}
+
+
 /***
  * 设置公用的项目名称
  * @type {string}
@@ -166,6 +191,32 @@ function moveElement(leftDestination, topDestination, target, interval, unit) {
 
     move();
 }
+
+
+/**
+ * 通用的获得ajavx对象,兼容各个浏览器
+ * @returns {*}
+ */
+function getHttpRequest() {
+    if (!XMLHttpRequest) {
+        try {
+            return new ActiveXObject("Msxml2.XMLHTTP.6.0");
+        }
+        catch (e) {
+        }
+        try {
+            return new ActiveXObject("Msxml2.XMLHTTP.3.0");
+        } catch (e) {
+        }
+        try {
+            return new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e) {
+        }
+        return false;
+    }
+    return new XMLHttpRequest();
+}
+
 /**
  * 检查浏览器是否支持某种类型的输入控件
  */
@@ -177,3 +228,5 @@ function inputSupportType(type) {
     input.setAttribute("type",type);
     input.type=='type'
 }
+
+
